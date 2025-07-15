@@ -44,16 +44,14 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     // Initialize Firebase if not already done
     await Firebase.initializeApp();
 
-    // Convert message to map format
-    final messageData = RemoteMessageConverter.toMap(message);
-
     // Show local notification if configured
     if (BackgroundHandlerConfig.showBackgroundNotifications &&
         BackgroundHandlerConfig.localNotificationService != null &&
         message.notification != null) {
       final title = message.notification!.title ?? 'New Message';
       final body = message.notification!.body ?? '';
-      final payload = jsonEncode(messageData);
+      // Encode the full RemoteMessage object as the payload
+      final payload = jsonEncode(RemoteMessageConverter.toMap(message));
 
       await BackgroundHandlerConfig.localNotificationService!.showNotification(
         title: title,
@@ -65,7 +63,8 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
     // Call the registered background message handler if available
     if (BackgroundHandlerConfig.messageHandler != null) {
-      await BackgroundHandlerConfig.messageHandler!(messageData);
+      // Pass the converted map to the message handler
+      await BackgroundHandlerConfig.messageHandler!(RemoteMessageConverter.toMap(message));
     }
   } catch (e) {
     // Cannot log in background handler as logger might not be initialized

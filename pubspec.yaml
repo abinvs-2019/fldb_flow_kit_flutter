@@ -1,9 +1,7 @@
 name: fldb_flow_kit
-description: "FLuxBD - A comprehensive Flutter package for Firebase Cloud Messaging, Local Notifications, Background Tasks, Deep Linking & Navigation routing."
-version: 0.0.1
-homepage: https://github.com/your-org/fldb_flow_kit
-repository: https://github.com/your-org/fldb_flow_kit
-issue_tracker: https://github.com/your-org/fldb_flow_kit/issues
+description: "FLuxBD - A Flutter package for Firebase Cloud Messaging, Local Notifications, Background Tasks, Deep Linking & Navigation routing."
+version: 0.0.1-alpha
+repository: https://github.com/abinvs-2019/fldb_flow_kit_flutter
 
 environment:
   sdk: ^3.7.0-323.0.dev
